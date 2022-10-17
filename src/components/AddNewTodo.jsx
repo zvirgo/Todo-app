@@ -62,13 +62,13 @@ const AddNewTodo = () => {
                     </div>
                     <div className="projects">
                         <div className="project active">
-                            personal
+                            Personal
                         </div>
                         <div className="project">
-                            work
+                            Work
                         </div>
                         <div className="project">
-                            work
+                            Other
                         </div>
                     </div>
                 </div>
