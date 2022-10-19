@@ -1,15 +1,35 @@
 import React from 'react'
 import { Bell, CalendarDay, Clock, Palette, X } from 'react-bootstrap-icons'
+import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, DatePicker, TimePicker } from '@material-ui/pickers';
 
-const TodoForm = ({ heading = false, text, setText, day, setDay, time, setTime, projects, showButtons = false, setShowModal = false }) => {
+function TodoForm({
+    handleSubmit,
+    heading = false,
+    text, setText,
+    day, setDay,
+    time, setTime,
+    todoProject, setTodoProject,
+    projects,
+    showButtons = false,
+    setShowModal = false
+}){
+
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <form className='TodoForm'>
+            <form onSubmit={handleSubmit} className='TodoForm'>
                 <div className="text">
-                    {heading && <h3>{heading}</h3>}
-                    <input type={text} value={text} onChange={e => setText(e.target.value)} placeholder="To do ..." autoFocus />
+                    {
+                        heading && 
+                        <h3>{heading}</h3>
+                    }
+                    <input
+                        type='text'
+                        value={text}
+                        onChange={e => setText(e.target.value)}
+                        placeholder='To do ...'
+                        autoFocus
+                    />
                 </div>
                 <div className="remind">
                     <Bell />
@@ -40,14 +60,22 @@ const TodoForm = ({ heading = false, text, setText, day, setDay, time, setTime, 
                         <Palette />
                         <p>Choose a project</p>
                     </div>
-
                     <div className="projects">
                         {
-                            projects.map(project =>
-                                <div className="project" key={project.id}>
+                            projects.length > 0 ?
+                            projects.map( project => 
+                                <div
+                                    className={`project ${todoProject === project.name ? "active" : ""}`}
+                                    onClick={() => setTodoProject(project.name)}
+                                    key={project.id}
+                                >
                                     {project.name}
-                                </div>
+                                </div>    
                             )
+                            :
+                            <div style={{color:'#ff0000'}}>
+                                Please add a project before proceeding
+                            </div>
                         }
                     </div>
                 </div>
@@ -62,7 +90,6 @@ const TodoForm = ({ heading = false, text, setText, day, setDay, time, setTime, 
                         </div>
                     </div>
                 }
-
             </form>
         </MuiPickersUtilsProvider>
     )

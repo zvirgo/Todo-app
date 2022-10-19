@@ -3,11 +3,12 @@ import TodoForm from './TodoForm'
 import { projects } from '../constants'
 
 const EditTodo = () => {
-  const [showModal, setShowModal] = useState(false)
-  const [text, setText] = useState('')
-  const [day, setDay] = useState(new Date())
-  const [time, setTime] = useState(new Date())
-  function handleSubmit(e){
+  const [text, setText] = useState()
+  const [day, setDay] = useState()
+  const [time, setTime] = useState()
+  const [todoProject, setTodoProject] = useState()
+
+  function handleSubmit(e) {
 
   }
   return (
@@ -20,12 +21,13 @@ const EditTodo = () => {
           handleSubmit={handleSubmit}
           text={text}
           setText={setText}
-          day={day} setDay={setDay}
+          day={day}
+          setDay={setDay}
           time={time}
           setTime={setTime}
+          todoProject={todoProject}
+          setTodoProject={setTodoProject}
           projects={projects}
-          showButtons={true}
-          setShowModal={setShowModal}
         />
       </div>
     </div>
