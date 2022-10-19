@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import Todo from './Todo'
 import Next7Days from './Next7Days'
-import { todos } from '../constants'
 import { TodoContext } from '../context'
 
 const Todos = () => {
-  const { selectedProject } = useContext(TodoContext)
+  const { todos, selectedProject } = useContext(TodoContext)
   return (
     <div className='Todos'>
       <div className='selected-project'>

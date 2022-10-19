@@ -1,5 +1,6 @@
-import firebase from "firebase/app"
-import "firebase/firestore"
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCAefyA5o8c_cBGYUBwWip8MwhH2TVOcXU",
@@ -8,7 +9,8 @@ const firebaseConfig = {
     storageBucket: "todo-react-app-5df2a.appspot.com",
     messagingSenderId: "20648455723",
     appId: "1:20648455723:web:da12879f210f8d478b046e"
-};
-firebase.initializeApp(firebaseConfig);
+}
+
+firebase.initializeApp(firebaseConfig)
 
 export default firebase
