@@ -1,13 +1,35 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Modal from './Modal'
 import ProjectForm from './ProjectForm'
 import { Plus } from 'react-bootstrap-icons'
+import firebase from '../firebase'
 
-function AddNewProject(){
+
+function AddNewProject() {
+     // STATE
     const [showModal, setShowModal] = useState(false)
     const [projectName, setProjectName] = useState('')
-    function handleSubmit(e){
 
+    function handleSubmit(e) {
+        e.preventDefault()
+        const projectRef = firebase
+            .firestore()
+            .collection('projects')
+        if (projectName) {
+            projectRef.where('name', '==', projectName)
+                .get()
+                .then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        projectRef.add({
+                            name: projectName
+                        })
+                    } else {
+                        alert('Project already exists')
+                    }
+                })
+            setShowModal(false)
+            setProjectName('')
+        }
     }
 
     return (
