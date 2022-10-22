@@ -59,19 +59,23 @@ export function useFilterTodos(todos, selectedProject) {
     useEffect(() => {
         let data;
         const todayDateFormated = moment().format('MM/DD/YYYY')
-        if (selectedProject === 'today') {
-            data = todos.filter(todo => todo.date === todayDateFormated)
-        } else if (selectedProject === 'next 7 days') {
-            data = todos.filter(todo => {
-                const todoDate = moment(todo.date, 'MM/DD/YYYY')
-                const todayDate = moment(todayDateFormated, 'MM/DD/YYYY')
-                const diffDays = todoDate.diff(todayDate, 'days')
-                return diffDays >= 0 && diffDays < 7
-            })
-        } else if (selectedProject === 'all days') {
-            data = todos
-        } else {
-            data = todos.filter(todo => todo.projectName === selectedProject)
+        switch (selectedProject) {
+            case 'today':
+                data = todos.filter(todo => todo.date === todayDateFormated)
+                break;
+            case 'next 7 days':
+                data = todos.filter(todo => {
+                    const todoDate = moment(todo.date, 'MM/DD/YYYY')
+                    const diffDays = todoDate.diff(todayDateFormated, 'days')
+                    return diffDays >= 0 && diffDays < 7
+                })
+                break;
+            case 'all days':
+                data = todos
+                break;
+            default:
+                data = todos.filter(todo => todo.projectName === selectedProject)
+                break;
         }
         setFilteredTodos(data)
     }, [todos, selectedProject])
